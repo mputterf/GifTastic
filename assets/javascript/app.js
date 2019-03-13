@@ -66,6 +66,28 @@ $(".topic-button").on("click", function(){
         console.log(response);
 
         // Store the data we want from the response
-        results = response.data;
+        var results = response.data;
+
+        // Loop through each result
+        for(var i = 0; i < results.length; i++){
+            // Create a new div for each result
+            var topicDiv = $("<div>");
+
+            // Create an element with the result's rating
+            var p = $("<p>").text("Rating: " + results[i].rating);
+
+            // create an element for the actual gif
+            var gif = $("<img>");
+
+            // set the gif to the img element
+            gif.attr("src", results[i].images.fixed_height.url);
+
+            // append the rating and gif to the dive
+            topicDiv.append(p);
+            topicDiv.append(gif);
+
+            // append to the html
+            $("#topic-gifs").append(topicDiv);
+        }
     });
 });
