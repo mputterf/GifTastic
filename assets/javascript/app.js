@@ -33,6 +33,8 @@ function makeButtons(topics){
     for(var i = 0; i<topics.length; i++){
         // Create the button from the array
         var topicButton = $("<button>");
+        // add class for ajax call
+        topicButton.addClass("topic-button");
         // Give it an id based on the topic
         topicButton.attr("id", topics[i] + "-button");
         // Give it a value for the ajax call
@@ -44,3 +46,26 @@ function makeButtons(topics){
         
     }
 }
+
+// ajax time
+// event listener for the topic buttons
+$(".topic-button").on("click", function(){
+    var selectedTopic = $(this).val();
+
+    // create query url with topic
+    var apiKey = "kZhPaDkM9dYWuryCnV6m8v4pLMs1URMX";
+    var limit = "10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + selectedTopic + "&api_key=" +
+                    apiKey + "&limit=" + limit;
+
+    // ajax call
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function(response){
+        console.log(response);
+
+        // Store the data we want from the response
+        results = response.data;
+    });
+});
