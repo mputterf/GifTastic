@@ -3,21 +3,9 @@ var topics = ["dog", "cat"];
 // make buttons of the inital items in the array
 makeButtons(topics);
 
-$("#submit-button").on("click", function(){
-    //Get input (and make lower case to avoid duplicate entries)
-    var newtopic = $("#topic-input").val().toLowerCase();
-
-    //send it to the array function and to the make the buttons
-    addToArr(newtopic);
-    makeButtons(topics);
-
-    // Clear the text field
-    $("#topic-input").val("");
-});
-
 function addToArr(newtopic){
     //check if topic is already in the array
-    if(!topics.includes(newtopic)){
+    if(!topics.includes(newtopic) && newtopic.length > 0){
         // push to the new topic to the array
         console.log(newtopic);
         topics.push(newtopic);
@@ -47,10 +35,29 @@ function makeButtons(topics){
     }
 }
 
+$("#submit-button").on("click", function(){
+    event.preventDefault();
+
+    //Get input (and make lower case to avoid duplicate entries)
+    var newtopic = $("#topic-input").val().toLowerCase();
+
+    //send it to the array function and to the make the buttons
+    addToArr(newtopic);
+    makeButtons(topics);
+
+    // Clear the text field
+    $("#topic-input").val("");  
+});
+
 // ajax time
 // event listener for the topic buttons
-$(".topic-button").on("click", function(){
+$(document).on("click", ".topic-button", function(){
+    console.log("Clicked " + $(this).val());
+
     var selectedTopic = $(this).val();
+
+    // clear html if new button is pressed so there aren't so many gifs
+    $("#topic-gifs").empty();
 
     // create query url with topic
     var apiKey = "kZhPaDkM9dYWuryCnV6m8v4pLMs1URMX";
