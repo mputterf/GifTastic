@@ -57,7 +57,7 @@ $(document).on("click", ".topic-button", function(){
     var selectedTopic = $(this).val();
 
     // clear html if new button is pressed so there aren't so many gifs
-    $("#topic-gifs").empty();
+    // $("#topic-gifs").empty();
 
     // create query url with topic
     var apiKey = "kZhPaDkM9dYWuryCnV6m8v4pLMs1URMX";
@@ -81,7 +81,7 @@ $(document).on("click", ".topic-button", function(){
             var topicDiv = $("<div>");
 
             // Create an element with the result's rating
-            var p = $("<p>").text("Rating: " + results[i].rating);
+            var p = $("<p>").text("Rating: " + results[i].rating.toUpperCase());
 
             // create an element for the actual gif
             var gif = $("<img>");
@@ -90,19 +90,19 @@ $(document).on("click", ".topic-button", function(){
             gif.addClass("gif");
 
             // set the gif to the img element (initally stopped)
-            gif.attr("src", results[i].images.fixed_height_still.url);
+            gif.attr("src", results[i].images.fixed_width_still.url);
             gif.attr("data-state", "still");
 
             // the still and animated links for the gifs
-            gif.attr("data-still", results[i].images.fixed_height_still.url);
-            gif.attr("data-animate", results[i].images.fixed_height.url);
+            gif.attr("data-still", results[i].images.fixed_width_still.url);
+            gif.attr("data-animate", results[i].images.fixed_width.url);
 
             // append the rating and gif to the dive
             topicDiv.append(p);
             topicDiv.append(gif);
 
             // append to the html
-            $("#topic-gifs").append(topicDiv);
+            $("#topic-gifs").prepend(topicDiv);
         }
     });
 });

@@ -1,0 +1,29 @@
+body{
+    background-image: url(../images/background.png);
+    background-size: cover;
+}
+
+#topic-form{
+    position: absolute;
+    right: 10px;
+}
+
+#topic-buttons{
+    float: left;
+}
+
+p{
+    text-align: center;
+}
+
+#topic-gifs{   
+    margin: 0 50%;
+    background-color: aliceblue;
+}
+
+button{
+    background-color: #4aaaa5;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+}
