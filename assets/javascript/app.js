@@ -31,7 +31,7 @@ function makeButtons(topics){
         topicButton.text(topics[i]);
         // Append to the DOM
         $("#topic-buttons").append(topicButton);
-        
+
     }
 }
 
@@ -46,7 +46,7 @@ $("#submit-button").on("click", function(){
     makeButtons(topics);
 
     // Clear the text field
-    $("#topic-input").val("");  
+    $("#topic-input").val("");
 });
 
 // ajax time
@@ -86,8 +86,16 @@ $(document).on("click", ".topic-button", function(){
             // create an element for the actual gif
             var gif = $("<img>");
 
-            // set the gif to the img element
-            gif.attr("src", results[i].images.fixed_height.url);
+            // add gif class
+            gif.addClass("gif");
+
+            // set the gif to the img element (initally stopped)
+            gif.attr("src", results[i].images.fixed_height_still.url);
+            gif.attr("data-state", "still");
+
+            // the still and animated links for the gifs
+            gif.attr("data-still", results[i].images.fixed_height_still.url);
+            gif.attr("data-animate", results[i].images.fixed_height.url);
 
             // append the rating and gif to the dive
             topicDiv.append(p);
@@ -97,4 +105,20 @@ $(document).on("click", ".topic-button", function(){
             $("#topic-gifs").append(topicDiv);
         }
     });
+});
+
+$(document).on("click", ".gif", function(){
+
+  // get state of gifs
+  var state = $(this).attr("data-state");
+
+  // If still, change the src to the animate attribute and change to animate state,
+  // else, change the src to the still attribute and change to the still state
+  if (state === "still") {
+    $(this).attr("src", $(this).attr("data-animate"));
+    $(this).attr("data-state", "animate");
+  } else {
+    $(this).attr("src", $(this).attr("data-still"));
+    $(this).attr("data-state", "still");
+  }
 });
